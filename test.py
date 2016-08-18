@@ -5,29 +5,29 @@
 #   Do not edit lines with comments that start with: "# Last line in"
 ###############################################################################
 # Imports  # there will only be two imports added here.
-
+import os
 
 ###############################################################################
 # Write f01 that prints "Hello World!" and calls f02. (three lines)
 def f01():
-
+    print("Hello World!")
     f02()
 
 
 ###############################################################################
 # Write f02 that sets the variables x, y, and z equal to the words
 # necessary to have the f03 print "i love python!" (five lines)
-
-
-
-
+def f02():
+    x = "i"
+    y = "love"
+    z = "python!"
     f03(x, y, z)  # Last line in f2()
 
 
 ###############################################################################
 # Finish f03 (replace the ????).
 def f03(*words):
-    truth = " ".????(words)  # This is broken.
+    truth = " ".join(words)  # This is broken.
     truth_emphasized = truth + "!"
     print(truth_emphasized)
     f04(truth)  # Last line in f03()
@@ -37,7 +37,7 @@ def f03(*words):
 # Write f04 that prints truth backwards (edit one line only)
 # Ex. f4("Littlest Bear") prints "raeB tselttiL"
 def f04(string):
-
+    print(string[::-1])
     f05(string)  # Last line in f04()
 
 
@@ -51,11 +51,9 @@ def f04(string):
 #   Info
 #    Info
 def f05(word):
-
-
-
-
-
+    count = 0
+    for char in word:
+        print(" "*count+word)
     f06("South Hall", "Python Rocks!")  # Last line in f05()
 
 
@@ -71,12 +69,18 @@ def f05(word):
 # 'longer_string' is longer than 'short_string' by 1 chars
 # 'short_string' has only 92.31% the number of chars of longer_string
 def f06(string1, string2):
-
-
-
-
-
-
+    len_str1 = len(string1)
+    len_str2 = len(string2)
+    if len_str1 > len_str2:
+        diff = len_str1 - len_str2
+        print("{} is longer than {} by {} chars".format(string1, string2, diff))
+        percent = diff/len_str1 * 100
+        print("{} has only {}% the number of chars of {}".format(string2, string1, repr(percent)))
+    else:
+        diff = len(string2) - len(string1)
+        print("{} is longer than {} by {} chars".format(string2, string1, diff))
+        percent = diff/len_str2 * 100
+        print("{} has only {}% the number of chars of {}".format(string1, string2, repr(percent)))
 
     various_solutions()  # Last line in f06()
 
@@ -96,7 +100,7 @@ def various_solutions():
     while_ = f07()
     for_ = f08()
     list_comprehension = f09()
-    recursion = f10()
+    recursion = f10(1)
     # DO NOT EDIT BELOW THIS LINE
     vals = [while_, for_, list_comprehension, recursion]
     for val in vals:
@@ -113,31 +117,48 @@ def various_solutions():
 
 ###############################################################################
 def f07():
-    ...
-
+    n = 1
+    sum_n = 0
+    while n < 500:
+        if n%3 == 0 or n%5 == 0:
+           sum_n += n
+        n += 1
+    return sum_n
 
 ###############################################################################
 def f08():
-    ...
-
+    sum_n = 0
+    for n in range(0, 500):
+        if n%3 == 0 or n%5 == 0:
+           sum_n += n
+    return sum_n
 
 ###############################################################################
 def f09():
-    ...
-
+    sum_n = 0
+    sum_n = sum([sum_n + n for n in range(0, 500) if n%3 == 0 or n%5 == 0])
+    return sum_n
 
 ###############################################################################
-def f10():
-    ...
-
+def f10(n, sum = 0):
+    if n == 500:
+        return sum
+    elif n%3 == 0 or n%5 == 0:
+        return f10(n+1, sum+n)
+    else:
+        return f10(n+1, sum)
 
 ###############################################################################
 # Write f11() to take arguments, printing them as floats if they started as
 # strings, integers if they started as floats, and as the value 0 if they
 # started as ints.
 def f11(args):
-    ...
-
+    if type(args) == str:
+        print(float(args))
+    elif type(args) == float:
+        print(int(args))
+    elif type(args) == int:
+        print(0)
 
 ###############################################################################
 # Write f12() to ask for raw_input from the user. Change the input to a float.
@@ -152,19 +173,26 @@ def f11(args):
 # Ex. printing
 #   [1.0, 1.3, 2.443]
 def f12():
-    ...
-
-
-
-
-
+    lst = []
+    while True:
+        user_inp = input("Enter an input: ")
+        if user_inp != "done":
+            try:
+                user_inp = float(user_inp)
+                lst.append(user_inp)
+            except ValueError:
+                with open("log_file.txt","w") as log:
+                    log.write(user_inp)
+        else:
+            break
+    print(lst)
     f13()  # Last line in f12()
 
 
 ###############################################################################
 # Fix the error in f13:
 def f13():
-    for each in "string"
+    for each in "string":
         print(each)
     f14()  # Last line in f13()
 
@@ -175,8 +203,8 @@ def f13():
 # Please do so at the top of the file.
 # Ex. /Users/dsg/pbc_2016/test/test_danielsgriffin.py
 def f14():
-
-
+    print("The path of the file is {}".format(os.getcwd())
+    
     f15()  # Last line in f14()
 
 
